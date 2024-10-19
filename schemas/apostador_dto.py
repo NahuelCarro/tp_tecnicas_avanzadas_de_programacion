@@ -9,7 +9,7 @@ class ApostadorBase(SQLModel):
     )
     mail: str = Field(
         regex=r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
-        description="El DNI solo debe contener números",
+        description="El mail debe contener un arroba y tener un formato válido",
     )
 
 
