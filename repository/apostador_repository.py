@@ -1,16 +1,18 @@
 from typing import Optional
-from sqlalchemy.orm import Session
+from sqlmodel import select
 from models.apostador import Apostador
+from database import SessionDep
 
 
 class ApostadorRepository:
-    def __init__(self, db: Session):
-        self.db = db
+    def __init__(self, session: SessionDep):
+        self.session = session
 
     def get_by_mail(self, mail: str) -> Optional[Apostador]:
-        return self.db.query(Apostador).filter(Apostador.mail == mail).first()
+        statement = select(Apostador).where(Apostador.mail == mail)
+        return self.session.exec(statement).first()
     
     def save(self, apostador: Apostador):
-        self.db.add(apostador)
-        self.db.commit()
-        self.db.refresh(apostador)
+        self.session.add(apostador)
+        self.session.commit()
+        self.session.refresh(apostador)
