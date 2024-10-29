@@ -7,7 +7,7 @@ from models.carrera_caballo_link import CarreraCaballoLink
 
 class Caballo(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
-    nombre: str = Field(nullable=False)
+    nombre: str = Field(nullable=False, unique=True)
     peso: float = Field()
     cuota: float = Field(nullable=False)
 
