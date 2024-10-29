@@ -16,7 +16,7 @@ class ApostadorBase(SQLModel):
 class ApostadorDTO(ApostadorBase):
     balance_apuestas: float
     apuestas: list[ApuestaDTO]
-    
+
     def __init__(self, apostador: Apostador):
         self.nombre = apostador.nombre
         self.mail = apostador.mail
