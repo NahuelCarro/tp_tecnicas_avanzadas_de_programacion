@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import apostador_controller
+from routers import apostador_controller, carrera_controller
 from fastapi import HTTPException
 
 from database import create_db_and_tables, get_session
@@ -10,6 +10,7 @@ app = FastAPI()
 
 create_db_and_tables()
 app.include_router(apostador_controller.router)
+app.include_router(carrera_controller.router)
 
 @app.on_event("startup")
 def crear_caballos_iniciales():
