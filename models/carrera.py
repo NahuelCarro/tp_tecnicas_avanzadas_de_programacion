@@ -1,3 +1,4 @@
+import random
 from typing import Optional
 from datetime import datetime
 from sqlmodel import SQLModel, Field, Relationship
@@ -15,3 +16,17 @@ class Carrera(SQLModel, table=True):
     )
     caballo_ganador_id: Optional[int] = Field(default=None, foreign_key="caballo.id")
     caballo_ganador: Optional["Caballo"] = Relationship()
+
+    def inscribir_caballo(self, caballo: "Caballo"):
+        if caballo not in self.caballos:
+            self.caballos.append(caballo)
+
+    def esta_iniciada(self) -> bool:
+        return self.fecha < datetime.now()
+
+    def determinar_ganador(self):
+        if not self.caballos:
+            raise ValueError("No hay caballos para la carrera")
+        ganador = random.choice(self.caballos)
+        self.caballo_ganador = ganador
+        self.caballo_ganador_id = ganador.id
