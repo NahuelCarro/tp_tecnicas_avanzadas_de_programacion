@@ -48,18 +48,12 @@ class Carrera(SQLModel, table=True):
         Args:
             caballo (Caballo): Instancia del caballo para el cual calcular el porcentaje.
 
-        Raises:
-            ValueError: Error si no hay apuestas realizadas al caballo especificado.
-
         Returns:
             float: Porcentaje ganador como float.
         """
         cantidad_apuestas = sum(
             1 for apuesta in self.apuestas if apuesta.caballo_id == caballo.id
         )
-
-        if cantidad_apuestas == 0:
-            raise ValueError("No hay apuestas realizadas al caballo especificado.")
 
         porcentaje = 2.00 - 0.10 * (cantidad_apuestas - 1)
 

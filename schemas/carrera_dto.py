@@ -5,6 +5,7 @@ from pydantic import Field
 from models.carrera import Carrera
 from schemas.caballo_dto import CaballoDTO
 
+
 class CarreraCreacionDTO(SQLModel):
     fecha: datetime = Field(description="La fecha de la carrera")
 
