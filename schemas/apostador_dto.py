@@ -1,3 +1,4 @@
+from pydantic import EmailStr
 from sqlmodel import Field, SQLModel
 from schemas.apuesta_dto import ApuestaDTO
 from models.apostador import Apostador
@@ -7,8 +8,8 @@ class ApostadorBase(SQLModel):
     nombre: str = Field(
         default=None, min_length=1, description="El nombre no debe estar vacío"
     )
-    mail: str = Field(
-        regex=r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
+    mail: EmailStr = Field(
+        ...,
         description="El mail debe contener un arroba y tener un formato válido",
     )
 

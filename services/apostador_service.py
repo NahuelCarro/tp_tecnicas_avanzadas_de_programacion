@@ -23,7 +23,8 @@ class ApostadorService:
     ) -> Apostador:
         if self.apostador_repository.obtener_por_mail(mail):
             raise HTTPException(
-                status_code=400, detail="Ya existe un apostador con ese mail"
+                status_code=400,
+                detail="Ya existe un apostador con ese mail",
             )
 
         apostador = Apostador(
