@@ -35,11 +35,6 @@ class CarreraService:
         carrera_obtenida: Carrera = self.carrera_repository.obtener_por_id(
             carrera.id
         )
-        if not carrera_obtenida:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Carrera no encontrada"
-            )
         if carrera_obtenida.esta_iniciada():
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
