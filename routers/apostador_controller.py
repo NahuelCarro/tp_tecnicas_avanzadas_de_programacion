@@ -1,11 +1,11 @@
 import bcrypt
 from datetime import timedelta
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi import APIRouter, status, Depends, HTTPException, Body
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from database import SessionDep
 from models.apostador import Apostador
-from schemas.apuesta_dto import ApuestaDTO
+from schemas.apuesta_dto import ApuestaDTO, ApuestaCreacionDTO
 from services.apostador_service import ApostadorService
 from auth.auth import create_access_token, get_current_user
 from repository.apostador_repository import ApostadorRepository
@@ -41,11 +41,17 @@ def login(
     apostador_repository = ApostadorRepository(session)
     apostador_service = ApostadorService(apostador_repository)
     apostador = apostador_service.obtener_apostador(form_data.username)
+    if not apostador:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Email o contraseña incorrectos",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     is_psw_valid = bcrypt.checkpw(
         form_data.password.encode("utf-8"),
         apostador.clave
     )
-    if not apostador or not is_psw_valid:
+    if not is_psw_valid:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Email o contraseña incorrectos",
@@ -78,7 +84,7 @@ def apostar(
     session: SessionDep,
     carrera_id: int,
     nombre_caballo: str,
-    monto: float = Body(..., embed=True, description="El monto de la apuesta"),
+    apuesta_creacion: ApuestaCreacionDTO,
     current_user: Apostador = Depends(get_current_user),
 ):
     apostador_repository = ApostadorRepository(session)
@@ -88,6 +94,6 @@ def apostar(
             current_user.mail,
             carrera_id,
             nombre_caballo,
-            monto
+            apuesta_creacion.monto
         )
     )
