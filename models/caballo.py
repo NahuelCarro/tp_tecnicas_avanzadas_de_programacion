@@ -9,7 +9,6 @@ class Caballo(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
     nombre: str = Field(nullable=False, unique=True)
     peso: float = Field()
-    cuota: float = Field(nullable=False)
 
     apuestas: list["Apuesta"] = Relationship(back_populates="caballo")
     carreras: list["Carrera"] = Relationship(

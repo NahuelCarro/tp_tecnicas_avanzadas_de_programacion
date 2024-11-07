@@ -18,6 +18,3 @@ class Apuesta(SQLModel, table=True):
     apostador: Optional["Apostador"] = Relationship(back_populates="apuestas")
     carrera: Optional[Carrera] = Relationship(back_populates="apuestas")
     caballo: Optional[Caballo] = Relationship(back_populates="apuestas")
-
-    def monto_premio(self) -> float:
-        return self.monto * self.caballo.cuota
