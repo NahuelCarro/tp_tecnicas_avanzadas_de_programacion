@@ -8,12 +8,12 @@ class CaballoService:
     def __init__(self, caballo_repository: CaballoRepository):
         self.caballo_repository = caballo_repository
 
-    def crear_caballo(self, nombre: str, peso: float, cuota: float):
+    def crear_caballo(self, nombre: str, peso: float):
         if self.caballo_repository.obtener_por_nombre(nombre):
             raise HTTPException(
                 status_code=400, detail="Ya existe un caballo con ese nombre"
             )
-        caballo = Caballo(nombre=nombre, peso=peso, cuota=cuota)
+        caballo = Caballo(nombre=nombre, peso=peso)
         self.caballo_repository.guardar(caballo)
         return caballo
 
