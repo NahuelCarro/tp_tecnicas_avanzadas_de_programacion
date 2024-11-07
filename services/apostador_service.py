@@ -1,14 +1,22 @@
 from typing import Optional
-from fastapi import HTTPException
-from models.apostador import Apostador
+
+
 from models.apuesta import Apuesta
-from repository.apostador_repository import ApostadorRepository
+from models.apostador import Apostador
 from repository.caballo_repository import CaballoRepository
-from services.caballo_service import CaballoService
 from repository.carrera_repository import CarreraRepository
-from services.carrera_service import CarreraService
 from repository.apuesta_repository import ApuestaRepository
+from repository.apostador_repository import ApostadorRepository
+from services.caballo_service import CaballoService
+from services.carrera_service import CarreraService
 from services.apuesta_service import ApuestaService
+from exceptions import (
+    EmailDuplicadoException,
+    MontoApuestaInvalidoException,
+    CarreraYaIniciadaException,
+    CaballoNoInscriptoException,
+    ApostadorYaApostoException
+)
 
 
 class ApostadorService:
@@ -22,10 +30,7 @@ class ApostadorService:
         self, nombre: str, mail: str, clave: str, es_admin: bool
     ) -> Apostador:
         if self.apostador_repository.obtener_por_mail(mail):
-            raise HTTPException(
-                status_code=400,
-                detail="Ya existe un apostador con ese mail",
-            )
+            raise EmailDuplicadoException()
 
         apostador = Apostador(
             nombre=nombre, mail=mail, clave=clave, es_admin=es_admin
@@ -55,21 +60,14 @@ class ApostadorService:
         carrera = carrera_service.obtener_carrera_por_id(carrera_id)
 
         if monto < 0:
-            raise HTTPException(
-                status_code=400, detail="El monto no puede ser negativo"
-            )
+            raise MontoApuestaInvalidoException()
         if carrera.esta_iniciada():
-            raise HTTPException(
-                status_code=400, detail="La carrera ya ha iniciado"
-            )
+            raise CarreraYaIniciadaException()
         if caballo not in carrera.caballos:
-            raise HTTPException(
-                status_code=400, detail="El caballo no está inscrito en la carrera"
-            )
+            raise CaballoNoInscriptoException()
         if any(apuesta.apostador_id == apostador.id for apuesta in carrera.apuestas):
-            raise HTTPException(
-                status_code=400, detail="El apostador ya ha apostado en la carrera"
-            )
+            raise ApostadorYaApostoException()
+
         apuesta = apostador.apostar(caballo, carrera, monto)
         apuesta_repository = ApuestaRepository(session)
         apuesta_service = ApuestaService(apuesta_repository)

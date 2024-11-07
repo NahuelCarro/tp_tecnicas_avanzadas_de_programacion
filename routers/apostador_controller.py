@@ -1,7 +1,7 @@
 import bcrypt
 from datetime import timedelta
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 
 from database import SessionDep
 from models.apostador import Apostador
@@ -10,6 +10,7 @@ from services.apostador_service import ApostadorService
 from auth.auth import create_access_token, get_current_user
 from repository.apostador_repository import ApostadorRepository
 from schemas.apostador_dto import ApostadorRegistroDTO, ApostadorDTO
+from exceptions import EmailOClaveIncorrectaException
 
 router = APIRouter(prefix="/apostador")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
@@ -42,21 +43,13 @@ def login(
     apostador_service = ApostadorService(apostador_repository)
     apostador = apostador_service.obtener_apostador(form_data.username)
     if not apostador:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Email o contraseña incorrectos",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise EmailOClaveIncorrectaException()
     is_psw_valid = bcrypt.checkpw(
         form_data.password.encode("utf-8"),
         apostador.clave
     )
     if not is_psw_valid:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Email o contraseña incorrectos",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise EmailOClaveIncorrectaException()
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": apostador.mail}, expires_delta=access_token_expires

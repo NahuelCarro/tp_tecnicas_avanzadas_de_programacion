@@ -9,10 +9,10 @@ from database import SessionDep
 from models.apostador import Apostador
 from services.apostador_service import ApostadorService
 from repository.apostador_repository import ApostadorRepository
-from auth.exceptions import (
-    InvalidCredentialsException,
-    ExpiredTokenException,
-    UserNotFoundException,
+from exceptions import (
+    CredencialesInvalidasException,
+    TokenExpiradoException,
+    UsuarioNoEncontradoException,
 )
 
 
@@ -43,15 +43,15 @@ def get_current_user(
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         mail: str = payload.get("sub")
         if mail is None:
-            raise InvalidCredentialsException()
+            raise CredencialesInvalidasException()
     except ExpiredSignatureError:
-        raise ExpiredTokenException()
+        raise TokenExpiradoException()
     except JWTError:
-        raise InvalidCredentialsException()
+        raise CredencialesInvalidasException()
 
     apostador_repository = ApostadorRepository(session)
     apostador_service = ApostadorService(apostador_repository)
     apostador = apostador_service.obtener_apostador(mail)
     if apostador is None:
-        raise UserNotFoundException()
+        raise UsuarioNoEncontradoException()
     return apostador

@@ -5,6 +5,13 @@ from fastapi import HTTPException, status
 from models.carrera import Carrera
 from models.caballo import Caballo
 from repository.carrera_repository import CarreraRepository
+from exceptions import (
+    FechaCarreraInvalidaException,
+    CarreraNoIniciadaException,
+    CarreraYaFinalizadaException,
+    CarreraYaIniciadaException,
+    CarreraNoEncontradaException
+)
 
 
 class CarreraService:
@@ -23,10 +30,7 @@ class CarreraService:
 
     def crear_carrera(self, fecha: datetime):
         if fecha < datetime.now():
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="La fecha de la carrera no puede ser del pasado"
-            )
+            raise FechaCarreraInvalidaException()
         carrera = Carrera(fecha=fecha)
         self.carrera_repository.guardar(carrera)
         return carrera
@@ -36,25 +40,16 @@ class CarreraService:
             carrera.id
         )
         if carrera_obtenida.esta_iniciada():
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="La carrera ya ha comenzado"
-            )
+            raise CarreraYaIniciadaException()
         carrera_obtenida.inscribir_caballo(caballo)
         self.carrera_repository.guardar(carrera_obtenida)
         return carrera_obtenida
 
     def empezar_carrera(self, carrera: Carrera):
         if not carrera.esta_iniciada():
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="La carrera no ha comenzado"
-            )
+            raise CarreraNoIniciadaException()
         if carrera.caballo_ganador_id:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="La carrera ya ha terminado"
-            )
+            raise CarreraYaFinalizadaException()
         try:
             carrera.determinar_ganador()
         except ValueError as e:
@@ -68,10 +63,7 @@ class CarreraService:
     def obtener_carrera_por_id(self, id: int) -> Optional[Carrera]:
         carrera = self.carrera_repository.obtener_por_id(id)
         if not carrera:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Carrera no encontrada"
-            )
+            raise CarreraNoEncontradaException()
         return carrera
 
     def actualizar_carrera(self, carrera: Carrera):

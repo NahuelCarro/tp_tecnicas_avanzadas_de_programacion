@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Query, Path
 from typing import Annotated
+from fastapi import APIRouter, Depends, Query, Path, status
 
 from database import SessionDep
 from models.apostador import Apostador
@@ -14,11 +14,18 @@ from schemas.carrera_dto import (
     CarreraConCaballosDTO,
     CarreraConCaballoGanadorDTO,
 )
-
+from exceptions import (
+    UsuarioNoAdministradorException,
+    LimiteOffsetNegativoException,
+)
 router = APIRouter(prefix="/carrera")
 
 
-@router.post("/crear", response_model=CarreraDTO)
+@router.post(
+    "/crear",
+    response_model=CarreraDTO,
+    status_code=status.HTTP_201_CREATED
+)
 def crear_carrera(
     session: SessionDep,
     carrera_dto: CarreraCreacionDTO,
@@ -26,9 +33,8 @@ def crear_carrera(
 ):
 
     if not current_user.es_admin:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="No tienes permisos para crear una carrera.",
+        raise UsuarioNoAdministradorException(
+            "No tienes permisos para crear una carrera"
         )
 
     carrera_repository = CarreraRepository(session)
@@ -36,7 +42,11 @@ def crear_carrera(
     return CarreraDTO(carrera_service.crear_carrera(carrera_dto.fecha))
 
 
-@router.get("/listar", response_model=list[CarreraConCaballosDTO])
+@router.get(
+    "/listar",
+    response_model=list[CarreraConCaballosDTO],
+    status_code=status.HTTP_200_OK
+)
 def listar_carreras(
     session: SessionDep,
     cantidad_por_pagina: int = Query(
@@ -45,10 +55,7 @@ def listar_carreras(
     pagina: int = Query(default=0, description="El número de carreras a saltar"),
 ):
     if cantidad_por_pagina < 0 or pagina < 0:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="El límite o el offset no pueden ser negativos",
-        )
+        raise LimiteOffsetNegativoException()
     carrera_repository = CarreraRepository(session)
     carrera_service = CarreraService(carrera_repository)
     return [
@@ -62,6 +69,7 @@ def listar_carreras(
 @router.put(
     "/agregar_caballo/{carrera_id}/{nombre_caballo}",
     response_model=CarreraConCaballosDTO,
+    status_code=status.HTTP_200_OK
 )
 def agregar_caballo(
     session: SessionDep,
@@ -70,9 +78,8 @@ def agregar_caballo(
     current_user: Apostador = Depends(get_current_user),
 ):
     if not current_user.es_admin:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="No tienes permisos para agregar un caballo a una carrera.",
+        raise UsuarioNoAdministradorException(
+            "No tienes permisos para agregar un caballo a una carrera"
         )
     carrera_repository = CarreraRepository(session)
     carrera_service = CarreraService(carrera_repository)
@@ -90,6 +97,7 @@ def agregar_caballo(
 @router.put(
     "/empezar/{carrera_id}",
     response_model=CarreraConCaballoGanadorDTO,
+    status_code=status.HTTP_200_OK
 )
 def empezar_carrera(
     session: SessionDep,
@@ -97,9 +105,8 @@ def empezar_carrera(
     current_user: Apostador = Depends(get_current_user),
 ):
     if not current_user.es_admin:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="No tienes permisos para empezar una carrera.",
+        raise UsuarioNoAdministradorException(
+            "No tienes permisos para empezar una carrera"
         )
     carrera_repository = CarreraRepository(session)
     carrera_service = CarreraService(carrera_repository)
