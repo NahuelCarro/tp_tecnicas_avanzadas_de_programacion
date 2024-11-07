@@ -4,8 +4,11 @@ from datetime import datetime
 from models.apuesta import Apuesta
 
 
-class ApuestaDTO(SQLModel):
+class ApuestaCreacionDTO(SQLModel):
     monto: float = Field(description="El monto de la apuesta")
+
+
+class ApuestaDTO(ApuestaCreacionDTO):
     fecha: datetime = Field(description="La fecha de la apuesta")
     carrera_id: int = Field(description="El ID de la carrera")
     caballo_nombre: str = Field(description="El nombre del caballo")
