@@ -78,3 +78,6 @@ class CarreraService:
                 detail="Carrera no encontrada"
             )
         return carrera
+
+    def actualizar_carrera(self, carrera: Carrera):
+        self.carrera_repository.guardar(carrera)
