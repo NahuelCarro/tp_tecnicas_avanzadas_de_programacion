@@ -1,4 +1,5 @@
 from typing import Optional
+from datetime import datetime
 from sqlmodel import Field, Relationship, SQLModel
 
 from models.apuesta import Apuesta
@@ -24,6 +25,7 @@ class Apostador(SQLModel, table=True):
     ) -> Apuesta:
         apuesta = Apuesta(
             monto=monto,
+            fecha=datetime.now(),
             apostador=self,
             caballo=caballo,
             carrera=carrera
