@@ -230,11 +230,11 @@ def test_listar_carreras(session: Session, client: TestClient):
         "Trueno",
     }, "Los nombres de los caballos en Carrera 1 no coinciden."
     assert (
-        carrera1_response["caballos"][0]["porcentaje_apuesta"] == 2.1
-    ), "El porcentaje de apuesta del caballo 1 en Carrera 1 no coincide."
+        carrera1_response["caballos"][0]["porcentaje_de_pago"] == 2.1
+    ), "El porcentaje de pago del caballo 1 en Carrera 1 no coincide."
     assert (
-        carrera1_response["caballos"][1]["porcentaje_apuesta"] == 2.1
-    ), "El porcentaje de apuesta del caballo 2 en Carrera 1 no coincide."
+        carrera1_response["caballos"][1]["porcentaje_de_pago"] == 2.1
+    ), "El porcentaje de pago del caballo 2 en Carrera 1 no coincide."
 
     # Verificar detalles de la segunda carrera
     carrera2_response = carreras_list[1]
