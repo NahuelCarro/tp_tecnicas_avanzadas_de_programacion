@@ -3,7 +3,7 @@ from datetime import datetime
 from pydantic import Field
 
 from models.carrera import Carrera
-from schemas.caballo_dto import CaballoDTO
+from schemas.caballo_dto import CaballoDTO, CaballoConPorcentajeGanadorDTO
 
 
 class CarreraCreacionDTO(SQLModel):
@@ -16,11 +16,14 @@ class CarreraDTO(CarreraCreacionDTO):
 
 
 class CarreraConCaballosDTO(CarreraDTO):
-    caballos: list[CaballoDTO] = Field(description="Los caballos de la carrera")
+    caballos: list[CaballoConPorcentajeGanadorDTO] = Field(description="Los caballos de la carrera")
 
     def __init__(self, carrera: Carrera):
         super().__init__(carrera)
-        self.caballos = [CaballoDTO(caballo) for caballo in carrera.caballos]
+        self.caballos = [
+            CaballoConPorcentajeGanadorDTO(caballo, carrera)
+            for caballo in carrera.caballos
+        ]
 
 
 class CarreraConCaballoGanadorDTO(CarreraDTO):

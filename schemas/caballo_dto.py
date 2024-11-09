@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel
 from pydantic import Field
 from models.caballo import Caballo
+from models.carrera import Carrera
 
 
 class CaballoDTO(SQLModel):
@@ -10,3 +11,13 @@ class CaballoDTO(SQLModel):
     def __init__(self, caballo: Caballo):
         self.nombre = caballo.nombre
         self.peso = caballo.peso
+
+
+class CaballoConPorcentajeGanadorDTO(CaballoDTO):
+    porcentaje_de_pago: float = Field(
+        description="El porcentaje de pago para el caballo ganador"
+    )
+
+    def __init__(self, caballo: Caballo, carrera: Carrera):
+        super().__init__(caballo)
+        self.porcentaje_de_pago = carrera.porcentaje_ganador(caballo)
