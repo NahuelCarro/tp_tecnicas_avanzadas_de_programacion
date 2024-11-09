@@ -20,11 +20,11 @@ def crear_caballos_iniciales():
         caballo_service = CaballoService(caballo_repo)
 
         caballos_iniciales = [
-            ("Relámpago", 450.5),
+            ("Relampago", 450.5),
             ("Tormenta", 480.0),
             ("Fuego", 490.0),
             ("Trueno", 500.0),
-            ("Ráfaga", 510.0),
+            ("Rafaga", 510.0),
             ("Viento", 520.0),
         ]
 
