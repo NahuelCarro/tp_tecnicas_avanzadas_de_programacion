@@ -12,6 +12,7 @@ que simule un sistema de apuestas de carreras de caballos, que debe cumplir con 
 
 Como primera entrega del trabajo practico se realizo el diagrama de clases y modelado de datos de la solucion:
 ![img.png](documentacion/diagrama_de_clases.png)
+
 Dejo el informe donde se detallan ademas las tecnologias a utilizar y los testeos que se realizaron [trabajo_practico](documentacion/tp_integrador_1er_etapa_nahuel_carro.pdf)
 
 ## Instalacion de programas y configuracion
