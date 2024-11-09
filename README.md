@@ -11,12 +11,12 @@ que simule un sistema de apuestas de carreras de caballos, que debe cumplir con 
 ## Documentacion
 
 Como primera entrega del trabajo practico se realizo el diagrama de clases y modelado de datos de la solucion:
-![img.png](documentacion/diagrama_de_clases.png)
+![img.png](documentacion/diagrama_de_clases.png) ![img2.png](documentacion/modelado_de_datos.png)
 
 Dejo el informe donde se detallan ademas las tecnologias a utilizar y los testeos que se realizaron [trabajo_practico](documentacion/tp_integrador_1er_etapa_nahuel_carro.pdf)
 
 ## Instalacion de programas y configuracion
-Para instalar el proyecto se debe clonar el repositorio utilizando [git](https://git-scm.com/downloads), ejecutando el comando `git clone https://github.com/NahuelCarro/tp_tecnicas_avanzadas_de_programacion.git`. Ademas se debe tener instalado [docker](https://docs.docker.com/compose/install/), y tener un archivo .env como el siguiente [.env](documentacion/.env) en donde se configuran las credenciales de la base de datos. 
+Para instalar el proyecto se debe clonar el repositorio utilizando [git](https://git-scm.com/downloads), ejecutando el comando `git clone https://github.com/NahuelCarro/tp_tecnicas_avanzadas_de_programacion.git`. Ademas se debe tener instalado [docker](https://docs.docker.com/compose/install/), y tener un archivo .env como el siguiente [.env](documentacion/.env_prueba) en donde se configuran las credenciales de la base de datos. 
 
 ## Ejecucion del proyecto
 Para ejecutar el proyecto se debe estar en la carpeta del proyecto clonado y ejecutar `docker-compose up --build` en la terminal. Este comando inicializara la base de datos y dejara abierto el puerto 8000 para ejecutar los endpoints de la API. 
