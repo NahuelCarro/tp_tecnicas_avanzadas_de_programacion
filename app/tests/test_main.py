@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 from sqlmodel import Session
 from fastapi.testclient import TestClient
 
-from models.caballo import Caballo
-from models.carrera import Carrera
+from app.models.caballo import Caballo
+from app.models.carrera import Carrera
 
 
 def registro_apostador(client: TestClient, nombre: str, mail: str, clave: str, es_admin: bool):

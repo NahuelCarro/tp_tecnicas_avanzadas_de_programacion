@@ -3,14 +3,14 @@ from datetime import timedelta
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import APIRouter, Depends, status
 
-from database import SessionDep
-from models.apostador import Apostador
-from schemas.apuesta_dto import ApuestaDTO, ApuestaCreacionDTO
-from services.apostador_service import ApostadorService
-from auth.auth import create_access_token, get_current_user
-from repository.apostador_repository import ApostadorRepository
-from schemas.apostador_dto import ApostadorRegistroDTO, ApostadorDTO
-from exceptions import EmailOClaveIncorrectaException
+from app.database import SessionDep
+from app.models.apostador import Apostador
+from app.schemas.apuesta_dto import ApuestaDTO, ApuestaCreacionDTO
+from app.services.apostador_service import ApostadorService
+from app.auth.auth import create_access_token, get_current_user
+from app.repository.apostador_repository import ApostadorRepository
+from app.schemas.apostador_dto import ApostadorRegistroDTO, ApostadorDTO
+from app.exceptions import EmailOClaveIncorrectaException
 
 router = APIRouter(prefix="/apostador")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30

@@ -3,7 +3,7 @@ from typing import Optional
 from sqlmodel import select
 
 from .base_repository import BaseRepository
-from models.carrera import Carrera
+from app.models.carrera import Carrera
 
 
 class CarreraRepository(BaseRepository):

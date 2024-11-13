@@ -1,4 +1,4 @@
-from models.caballo import Caballo
+from app.models.caballo import Caballo
 from .base_repository import BaseRepository
 from typing import Optional
 from sqlmodel import select

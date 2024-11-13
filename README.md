@@ -23,6 +23,6 @@ Para ejecutar el proyecto se debe estar en la carpeta del proyecto clonado y eje
 
 Una vez inicializado, se puede utilizar la API y probar los endpoints, para esto se deja una coleccion de postman con los endpoints y ejemplos: [coleccion de Postman](documentacion/apuestas_de_caballos.postman_collection.json). Ademas se puede consultar la documentacion de la API en [docs](http://localhost:8000/docs#/) para ver el Swagger y ver los endpoints disponibles
 
-Si se quiere realizar las pruebas del proyecto se debe ejecutar el comando `docker-compose run web pytest tests/` el cual ejecutara todos los tests que se encuentran en la carpeta tests del repositorio.
+Si se quiere realizar las pruebas del proyecto se debe ejecutar el comando `docker-compose run web pytest app/tests/` el cual ejecutara todos los tests que se encuentran en la carpeta tests del repositorio.
 
 Para detener el proceso se debe ejecutar `docker-compose down`

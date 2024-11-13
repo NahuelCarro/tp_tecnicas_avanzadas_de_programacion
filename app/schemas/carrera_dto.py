@@ -2,8 +2,8 @@ from sqlmodel import SQLModel
 from datetime import datetime
 from pydantic import Field
 
-from models.carrera import Carrera
-from schemas.caballo_dto import CaballoDTO, CaballoConPorcentajeGanadorDTO
+from app.models.carrera import Carrera
+from app.schemas.caballo_dto import CaballoDTO, CaballoConPorcentajeGanadorDTO
 
 
 class CarreraCreacionDTO(SQLModel):

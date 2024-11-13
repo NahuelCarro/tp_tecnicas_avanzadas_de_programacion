@@ -5,11 +5,11 @@ from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt, ExpiredSignatureError
 
-from database import SessionDep
-from models.apostador import Apostador
-from services.apostador_service import ApostadorService
-from repository.apostador_repository import ApostadorRepository
-from exceptions import (
+from app.database import SessionDep
+from app.models.apostador import Apostador
+from app.services.apostador_service import ApostadorService
+from app.repository.apostador_repository import ApostadorRepository
+from app.exceptions import (
     CredencialesInvalidasException,
     TokenExpiradoException,
     UsuarioNoEncontradoException,

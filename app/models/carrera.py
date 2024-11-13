@@ -3,7 +3,7 @@ from typing import Optional
 from datetime import datetime
 from sqlmodel import SQLModel, Field, Relationship
 
-from models.carrera_caballo_link import CarreraCaballoLink
+from app.models.carrera_caballo_link import CarreraCaballoLink
 
 
 class Carrera(SQLModel, table=True):

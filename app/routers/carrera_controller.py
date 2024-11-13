@@ -1,20 +1,20 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, Query, Path, status
 
-from database import SessionDep
-from models.apostador import Apostador
-from auth.auth import get_current_user
-from services.carrera_service import CarreraService
-from services.caballo_service import CaballoService
-from repository.carrera_repository import CarreraRepository
-from repository.caballo_repository import CaballoRepository
-from schemas.carrera_dto import (
+from app.database import SessionDep
+from app.models.apostador import Apostador
+from app.auth.auth import get_current_user
+from app.services.carrera_service import CarreraService
+from app.services.caballo_service import CaballoService
+from app.repository.carrera_repository import CarreraRepository
+from app.repository.caballo_repository import CaballoRepository
+from app.schemas.carrera_dto import (
     CarreraCreacionDTO,
     CarreraDTO,
     CarreraConCaballosDTO,
     CarreraConCaballoGanadorDTO,
 )
-from exceptions import (
+from app.exceptions import (
     UsuarioNoAdministradorException,
     LimiteOffsetNegativoException,
 )

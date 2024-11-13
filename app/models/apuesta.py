@@ -2,8 +2,8 @@ from datetime import datetime
 from typing import Optional
 from sqlmodel import SQLModel, Field, Relationship
 
-from models.carrera import Carrera
-from models.caballo import Caballo
+from app.models.carrera import Carrera
+from app.models.caballo import Caballo
 
 
 class Apuesta(SQLModel, table=True):

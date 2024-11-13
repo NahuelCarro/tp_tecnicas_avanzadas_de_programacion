@@ -1,5 +1,5 @@
-from models.apuesta import Apuesta
-from repository.apuesta_repository import ApuestaRepository
+from app.models.apuesta import Apuesta
+from app.repository.apuesta_repository import ApuestaRepository
 
 
 class ApuestaService:

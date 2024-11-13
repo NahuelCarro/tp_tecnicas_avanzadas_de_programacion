@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel
 from pydantic import Field
 from datetime import datetime
-from models.apuesta import Apuesta
+from app.models.apuesta import Apuesta
 
 
 class ApuestaCreacionDTO(SQLModel):

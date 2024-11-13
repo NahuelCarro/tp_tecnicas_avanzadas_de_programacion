@@ -1,9 +1,12 @@
 from typing import Optional
 
 
-from models.caballo import Caballo
-from repository.caballo_repository import CaballoRepository
-from exceptions import CaballoNoEncontradoException, CaballoDuplicadoException
+from app.models.caballo import Caballo
+from app.repository.caballo_repository import CaballoRepository
+from app.exceptions import (
+    CaballoNoEncontradoException,
+    CaballoDuplicadoException
+)
 
 
 class CaballoService:

@@ -2,9 +2,9 @@ from typing import Optional
 from datetime import datetime
 from sqlmodel import Field, Relationship, SQLModel
 
-from models.apuesta import Apuesta
-from models.carrera import Carrera
-from models.caballo import Caballo
+from app.models.apuesta import Apuesta
+from app.models.carrera import Carrera
+from app.models.caballo import Caballo
 
 
 class Apostador(SQLModel, table=True):

@@ -2,10 +2,10 @@ from typing import Optional
 from datetime import datetime
 from fastapi import HTTPException, status
 
-from models.carrera import Carrera
-from models.caballo import Caballo
-from repository.carrera_repository import CarreraRepository
-from exceptions import (
+from app.models.carrera import Carrera
+from app.models.caballo import Caballo
+from app.repository.carrera_repository import CarreraRepository
+from app.exceptions import (
     FechaCarreraInvalidaException,
     CarreraNoIniciadaException,
     CarreraYaFinalizadaException,

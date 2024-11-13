@@ -1,16 +1,16 @@
 from typing import Optional
 
 
-from models.apuesta import Apuesta
-from models.apostador import Apostador
-from repository.caballo_repository import CaballoRepository
-from repository.carrera_repository import CarreraRepository
-from repository.apuesta_repository import ApuestaRepository
-from repository.apostador_repository import ApostadorRepository
-from services.caballo_service import CaballoService
-from services.carrera_service import CarreraService
-from services.apuesta_service import ApuestaService
-from exceptions import (
+from app.models.apuesta import Apuesta
+from app.models.apostador import Apostador
+from app.repository.caballo_repository import CaballoRepository
+from app.repository.carrera_repository import CarreraRepository
+from app.repository.apuesta_repository import ApuestaRepository
+from app.repository.apostador_repository import ApostadorRepository
+from app.services.caballo_service import CaballoService
+from app.services.carrera_service import CarreraService
+from app.services.apuesta_service import ApuestaService
+from app.exceptions import (
     EmailDuplicadoException,
     MontoApuestaInvalidoException,
     CarreraYaIniciadaException,

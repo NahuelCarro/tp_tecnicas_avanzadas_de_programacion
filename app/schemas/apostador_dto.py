@@ -1,7 +1,7 @@
 from pydantic import EmailStr
 from sqlmodel import Field, SQLModel
-from schemas.apuesta_dto import ApuestaDTO
-from models.apostador import Apostador
+from app.schemas.apuesta_dto import ApuestaDTO
+from app.models.apostador import Apostador
 
 
 class ApostadorBase(SQLModel):

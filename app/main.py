@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from routers import apostador_controller, carrera_controller
+from app.routers import apostador_controller, carrera_controller
 from fastapi import HTTPException
 
-from database import create_db_and_tables, get_session
-from services.caballo_service import CaballoService
-from repository.caballo_repository import CaballoRepository
+from app.database import create_db_and_tables, get_session
+from app.services.caballo_service import CaballoService
+from app.repository.caballo_repository import CaballoRepository
 
 app = FastAPI()
 

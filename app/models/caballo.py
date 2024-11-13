@@ -1,8 +1,8 @@
 from typing import Optional
 from sqlmodel import SQLModel, Field, Relationship
 
-from models.carrera import Carrera
-from models.carrera_caballo_link import CarreraCaballoLink
+from app.models.carrera import Carrera
+from app.models.carrera_caballo_link import CarreraCaballoLink
 
 
 class Caballo(SQLModel, table=True):

@@ -1,6 +1,6 @@
 from typing import Optional
 from sqlmodel import select
-from models.apostador import Apostador
+from app.models.apostador import Apostador
 from .base_repository import BaseRepository
 
 

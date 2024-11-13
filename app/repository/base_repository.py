@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel
-from database import SessionDep
+from app.database import SessionDep
 
 
 class BaseRepository:

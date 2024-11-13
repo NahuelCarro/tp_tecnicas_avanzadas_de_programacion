@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel
 from pydantic import Field
-from models.caballo import Caballo
-from models.carrera import Carrera
+from app.models.caballo import Caballo
+from app.models.carrera import Carrera
 
 
 class CaballoDTO(SQLModel):
